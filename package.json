@@ -1,0 +1,37 @@
+{
+  "name": "quicktionary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "build": "browserify -t hbsfy ./public/javascript/client.js -o ./public/bundle.js -dv",
+    "watch": "watchify -t hbsfy ./public/javascript/client.js -o ./public/bundle.js -dv"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wishmouse/quicktionary.git"
+  },
+  "author": "Heidi Goosen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wishmouse/quicktionary/issues"
+  },
+  "homepage": "https://github.com/wishmouse/quicktionary#readme",
+  "dependencies": {
+    "browserify": "^16.2.2",
+    "consolidate": "^0.15.1",
+    "express": "^4.16.3",
+    "jquery": "^3.3.1",
+    "nodemon": "^1.18.4",
+    "oxford-dictionary-api": "^1.0.1",
+    "passport": "^0.4.0",
+    "superagent": "^3.8.3",
+    "swig": "^1.4.2",
+    "watchify": "^3.11.0"
+  },
+  "devDependencies": {
+    "handlebars": "^4.0.12",
+    "hbsfy": "^2.8.1"
+  }
+}
