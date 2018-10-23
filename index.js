@@ -25,7 +25,7 @@ var dictionaryApi = new dictionaryWebApi({
     "app_id": "e8084dc1",
     "app_key": "6b8fde10b5d7828319d3a053f2ac7e66"
 })
-
+/*
 
 app.post('/', function(req, res){
   var word_id = req.body.search
@@ -43,7 +43,7 @@ app.post('/', function(req, res){
 
   });
 })
-
+*/
 app.get('/', function(req, res){
   res.render("index")
 })
