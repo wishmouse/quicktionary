@@ -21,7 +21,6 @@ html {
 	top: 0;
 	cursor: pointer;
 	width: 60px;
-	background: white;
 	border-radius: 3px;
 	margin: 0 7px 11px 0;
 	line-height: 50px;
@@ -95,4 +94,8 @@ input {
 	background: #9c89f6;
 	box-shadow: 0px 4px #6b54d3;
 	color: white;
+}
+
+.used_letters{
+	background:red;
 }
