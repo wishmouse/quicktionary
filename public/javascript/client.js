@@ -38,16 +38,19 @@ var request = require('superagent')
          var letter3 = $('#letter3').val()
          var letter4 = $('#letter4').val()
          var word =letter1+letter2+letter3+letter4
-
-         request
-          .post('/')
-          .send({search: word})
-          .end(function(err, response){
-       //if statement for error/ response
-        })
-        charArray()
-        removeWord()
-
+         wordLength=word.split('')
+         if (wordLength.length != 4){
+           alert('Please enter a four letter word')
+         } else{
+           request
+            .post('/')
+            .send({search: word})
+            .end(function(err, response){
+         //if statement for error/ response
+          })
+          charArray()
+          removeWord()
+         }
      })
 
      function charArray(){
@@ -67,21 +70,20 @@ var request = require('superagent')
             total = xtotal*-1
             if (total >0 ){
               totalSpan ="" +
-                 "<span class='past_input' style='background: #bdf5bd' type='text'>"+total+"</span>"
+                 "<span class='past_input_wrong' style='background: #bdf5bd; border-radius:30px' type='text'>"+total+"</span>"
             } else {
               totalSpan ="" +
-               "<span class='past_input' style='background: #f5bdbd' type='text'>"+total+"</span>" }
-
- console.log(total)
+               "<span class='past_input_wrong' style='background: #f5bdbd; border-radius:30px' type='text'>"+total+"</span>"
+             }
 
 
            var pastWords = $("#past_words")
            var pastWordAttempts ="" +
             "<div class='word'>"+
-              "<span class='past_input' type='text'>"+letter1+"</span>" +
-              "<span class='past_input' type='text'>"+letter2+"</span>" +
-              "<span class='past_input' type='text'>"+letter3+"</span>" +
-              "<span class='past_input' type='text'>"+letter4+"</span>" +
+              "<span class='past_input' guess='past_guess' type='text'>"+letter1+"</span>" +
+              "<span class='past_input' guess='past_guess' type='text'>"+letter2+"</span>" +
+              "<span class='past_input' guess='past_guess' type='text'>"+letter3+"</span>" +
+              "<span class='past_input' guess='past_guess' type='text'>"+letter4+"</span>" +
               totalSpan+
             "</div>"
             pastWords.append(pastWordAttempts)
@@ -89,17 +91,20 @@ var request = require('superagent')
             if(total == 0){
               $( ".past_input" ).each(function( i ) {
                   past_input_value = $( ".past_input" ).html()
-
-                  if ( past_input_value == letter1 ||past_input_value == letter2 || past_input_value == letter3 || past_input_value == letter4) {
-                    this.style.color = "blue";
-                  } else {
-                    this.style.color = "orange";
-                  }
+                  if (past_input_value == letter1 ||past_input_value == letter2 || past_input_value == letter3 || past_input_value == letter4) {
+                    $(this).removeClass('past_input').addClass('past_input_wrong')
+                    alphabet_value = $("#"+past_input_value)
+                        //if (alphabet_value== letter1 ||alphabet_value ==  letter2 || alphabet_value == letter3 || alphabet_value ==  letter4 ) {
+                        //  $(this).removeAttr(name).attr('name', 'used_alphabet')
+                          alphabet_value.css("background-color", "#f5bdbd")
+                      //  }
+                      }
                 });
             }
-            removeWord()
-         }
-       }
+          }
+  checkLetters()
+  removeWord()
+ }
 
 
      function removeWord(){
@@ -108,6 +113,13 @@ var request = require('superagent')
        $('#letter2').val('')
        $('#letter3').val('')
        $('#letter4').val('')
+     }
+
+     function checkLetters(){
+       past_input_value =  $('[guess="past_guess"]').html()
+       if ( past_input_value == letter1 ||past_input_value == letter2 || past_input_value == letter3 || past_input_value == letter4) {
+         past_input_value.removeClass('past_input').addClass('past_input_wrong')
+       }
      }
 
 });

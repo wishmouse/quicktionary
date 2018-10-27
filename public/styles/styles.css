@@ -42,7 +42,19 @@ input {
 	font-weight: 500;
 	color: black;
 	text-align: center;
+		background: #C7C7C7;
 }
+
+.past_input_wrong{
+	height: 55px;
+	font: bold 30px Arial, sans-serif;
+	font-weight: 500;
+	color: black;
+	background: #f5bdbd;
+	text-align: center;
+}
+
+
 /* Clear floats */
 .keys, .top {overflow: hidden;}
 
@@ -94,8 +106,4 @@ input {
 	background: #9c89f6;
 	box-shadow: 0px 4px #6b54d3;
 	color: white;
-}
-
-.used_letters{
-	background:red;
 }
