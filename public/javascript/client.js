@@ -1,5 +1,7 @@
 var $ = require('jquery')
 var request = require('superagent')
+//var _word = require('./_word')
+
 
  $(document).ready(function(){
     letter1 = ''
@@ -7,12 +9,36 @@ var request = require('superagent')
     letter3 = ''
     letter4 = ''
     wrongArray =[]
+    uniqWrongArray = []
+    mysteryWord = ''
+
+
+    mysteryObj = [
+      {id: 0, word:'LEFT'},
+      {id: 1, word:'ROSE'},
+      {id: 2, word: 'FILE'},
+      {id: 3, word: 'TIME'}
+    ]
+
+    function mysteryWord(){
+    var number =  Math.floor(Math.random() * 4)
+        console.log('type of number::', typeof number)
+        for( var i = 0; i < mysteryObj.length; i++ ){
+          if( mysteryObj[ i ].id === number ){
+            mysteryWord = mysteryObj[ i ].word;
+            console.log(mysteryWord)
+          
+          }
+        };
+      }
+
+      $(window).on('load', function() {  mysteryWord()})
+
 
   $('#alphabet').delegate('.letters', 'click', function(e){
            var ab = $(this).attr('id')
            var newClass = $(this).attr('class', 'used_letters');
            alphabet =ab.toUpperCase()
-
              letter1 = $('#letter1').val()
              letter2 = $('#letter2').val()
              letter3 = $('#letter3').val()
@@ -39,23 +65,45 @@ var request = require('superagent')
 
          var word =letter1+letter2+letter3+letter4
          word_id = word.toLowerCase()
+         console.log(word_id)
          wordLength=word.split('')
          if (wordLength.length != 4){
            alert('Please enter a four letter word')
-         } else{
+         }
+         /* else{
            request
             .post('/')
             .send({search: word_id})
             .end(function(err, response){
-         //if statement for error/ response
+              console.log('err::', err)
+              console.log('response::', response)
+              if(response.body != word_id){
+                alert('is not a valid word')
+                removeWord()
+              } else{
+                charArray()
+
+              }
           })
-          charArray()
-          removeWord()
          }
+         */else{
+         charArray()
+       }
      })
 
+
+
+        /* for (i= 0; i < mysteryObj.length; i++) {
+           console.log(' type ofmysteryObj.id::', typeof mysteryObj[0].id)
+             word = mysteryObj[0].id
+             if(word == number )
+             word = mysteryObj.id
+             return word
+         }
+     }*/
+
      function charArray(){
-       var mysteryWord = 'ROSE'
+       console.log('mysteryWord off client::', mysteryWord)
         letter1 = $('#letter1').val()
         letter2 = $('#letter2').val()
         letter3 = $('#letter3').val()
@@ -101,7 +149,7 @@ var request = require('superagent')
                   },[]);
              for (i = 0; i < uniqWrongArray.length; i++) {
                     var wrongArrayLetter = uniqWrongArray[i]
-                    var past_input_value = $( ".past_input" ).html()
+                    var past_input_value = $("[value="+wrongArrayLetter+"]").html()
                     if (past_input_value == wrongArrayLetter ){
                       if(past_input_value == letter1|| past_input_value == letter2 ||past_input_value == letter3 || past_input_value == letter4) {
                        $("[value="+past_input_value+"]").removeClass('past_input').addClass('past_input_wrong')
@@ -111,7 +159,7 @@ var request = require('superagent')
                     }
                 }
               //);
-            } else {
+            } else{
               for (i = 0; i < uniqWrongArray.length; i++) {
                      var wrongArrayLetter = uniqWrongArray[i]
                      //var past_input_value = $( ".past_input" ).html()
