@@ -4,35 +4,45 @@ var request = require('superagent')
 
 
  $(document).ready(function(){
+mysteryWord()
+
     letter1 = ''
     letter2 = ''
     letter3 = ''
     letter4 = ''
-    wrongArray =[]
+    var wrongArray =[]
     uniqWrongArray = []
-    mysteryWord = ''
+    var mysteryWord
 
-
-    mysteryObj = [
-      {id: 0, word:'LEFT'},
-      {id: 1, word:'ROSE'},
-      {id: 2, word: 'FILE'},
-      {id: 3, word: 'TIME'}
-    ]
-
-    function mysteryWord(){
+/*
+  function mysteryWord(){
     var number =  Math.floor(Math.random() * 4)
         console.log('type of number::', typeof number)
         for( var i = 0; i < mysteryObj.length; i++ ){
           if( mysteryObj[ i ].id === number ){
             mysteryWord = mysteryObj[ i ].word;
             console.log(mysteryWord)
-          
           }
         };
       }
+*/
+        function mysteryWord(){
+          mysteryObj = [
+            {id: 0, word:'LEFT'},
+            {id: 1, word:'ROSE'},
+            {id: 2, word: 'FILE'},
+            {id: 3, word: 'TIME'}
+          ]
 
-      $(window).on('load', function() {  mysteryWord()})
+          var number =  Math.floor(Math.random() * 4)
+              for( var i = 0; i < mysteryObj.length; i++ ){
+                if( mysteryObj[ i ].id === number ){
+                  mysteryWord = mysteryObj[ i ].word;
+                  break
+                }
+              };
+            }
+
 
 
   $('#alphabet').delegate('.letters', 'click', function(e){
@@ -110,7 +120,19 @@ var request = require('superagent')
         letter4 = $('#letter4').val()
        var word =letter1+letter2+letter3+letter4
        if(mysteryWord == word){
-         alert ('boom!  you are amazing')
+            var pastWords = $("#past_words")
+            var pastWordAttempts ="" +
+             "<div class='word'>"+
+               "<div class='wiggle'>" +
+                 "<span class='past_input' style='background: #91ee91' value='"+letter1+"'  type='text'>"+letter1+"</span>" +
+                 "<span class='past_input' style='background: #91ee91' value='"+letter2+"'  type='text'>"+letter2+"</span>" +
+                 "<span class='past_input' style='background: #91ee91' value='"+letter3+"'  type='text'>"+letter3+"</span>" +
+                 "<span class='past_input' style='background: #91ee91' value='"+letter4+"'  type='text'>"+letter4+"</span>" +
+               "</div>"+
+            "</div>"
+             pastWords.append(pastWordAttempts)
+             removeWord()
+
        } else {
            var mysteryArray = mysteryWord.split('')
            guessArray = word.split('')
@@ -128,7 +150,7 @@ var request = require('superagent')
 
            var pastWords = $("#past_words")
            var pastWordAttempts ="" +
-            "<div class='word'>"+
+            "<div class='words'>"+
               "<span class='past_input' value='"+letter1+"' guess='past_guess' type='text'>"+letter1+"</span>" +
               "<span class='past_input' value='"+letter2+"' guess='past_guess' type='text'>"+letter2+"</span>" +
               "<span class='past_input' value='"+letter3+"' guess='past_guess' type='text'>"+letter3+"</span>" +
@@ -162,7 +184,6 @@ var request = require('superagent')
             } else{
               for (i = 0; i < uniqWrongArray.length; i++) {
                      var wrongArrayLetter = uniqWrongArray[i]
-                     //var past_input_value = $( ".past_input" ).html()
                      var past_input_value =$("[value="+wrongArrayLetter+"]").html()
                       if (past_input_value == wrongArrayLetter ){
                        if(past_input_value == letter1|| past_input_value == letter2 ||past_input_value == letter3 || past_input_value == letter4) {
@@ -187,6 +208,7 @@ var request = require('superagent')
        $('#letter3').val('')
        $('#letter4').val('')
      }
+
 
 
 });

@@ -14,7 +14,10 @@ html {
 	background-size: cover;
 }
 /* Clear floats */
-.word, .top {overflow: hidden;}
+.word, .top {overflow: hidden;
+			padding: 20px 5px 0px 116px;
+}
+
 .word span, .top span.clear {
 	float: left;
 	position: relative;
@@ -84,14 +87,14 @@ input {
 	color: white;
 }
 
-.submit span, .top span.clear {
+.submit{
 	float: left;
 	position: relative;
 	top: 0;
 	cursor: pointer;
 	width: 26.5%;
 	height: 45px;
-	background: white;
+	background: #9c89f642;
 	border-radius: 3px;
 	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
 	margin: 0 7px 11px 0;
@@ -100,10 +103,35 @@ input {
 	transition: all 0.2s ease;
 	font: bold 18px Arial, sans-serif;
 	padding-top: 10px;
+	margin-left: 171px
 }
 
 .submit span:hover {
 	background: #9c89f6;
 	box-shadow: 0px 4px #6b54d3;
 	color: white;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+   80% { transform: rotate(0deg); }
+   85% { transform: rotate(5deg); }
+   95% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wiggle {
+  display: inline-block;
+  animation: wiggle 1.5s infinite;
+	margin-left: -115px;
+}
+
+.wiggle:hover {
+  animation: none;
+}
+
+.spacer{
+	background: none;
+	box-shadow: 0px 4px rgba(0, 0, 0, 0);
+	padding-left: 16px;
 }
